@@ -8,8 +8,9 @@ set multiplot layout 1,1
 set xlabel 'wid'
 set ylabel 'seconds consume for 100 loops'
 set xrange [40:140]
-set yrange [0:7.5]
-plot "res.1subband.txt" u 1:2 w lp t "LU","" u 1:3 w lp t "T", '' u 1:5 w lp t 'dosR'
+# set yrange [0:7.5]
+# set log y 10
+plot "res.1subband.txt" u 1:2 w lp t "LU","" u 1:3 w lp t "T", '' u 1:5 w lp t 'dosR', '' u 1:6 w lp t 'recursive'
 unset multiplot
 set output
 q
