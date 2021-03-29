@@ -65,18 +65,15 @@ for nW=1:100
     c14=c12*c11;
     TT = c14*c14';
     cond=real(trace(TT));
+    % cond=full(real(trace(TT)));
 end
 toc;
-% fprintf('T=%-8f\n',cond);
-%---------------------
-%         c1 = sparse(PP1(:,left)*wL);
-%         c2 = LL1\c1;
-%         c3 = UU1\c2;
-%         c4 = QQ1*c3; % Gr!wL>
+% cond
 tic;
 for nW=1:100
     c3 = UU1\c11;
     c4 = QQ1*c3; % Gr!wL>
+    dosL = sum(sum(c4.*conj(c4)));
     dosL = full(sum(sum(c4.*conj(c4))));
 end
 toc;
@@ -88,6 +85,7 @@ for nW=1:100
     c6 = LL1\c5;
     c7 = UU1\c6;
     c8 = QQ1*c7; % Gr!wR>
+    % dosR = sum(sum(c8.*conj(c8)));
     dosR = full(sum(sum(c8.*conj(c8))));
 end
 toc;
