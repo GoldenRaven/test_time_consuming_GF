@@ -1,13 +1,14 @@
 % square lattice
 % x is the bound direction
 clear all
-tic;
+% tic;
+% profile on
 %-------------------------
-for wid = 10:10:130
+for wid = 100
     nlen = wid;
     t = 1;
     %-------------------------
-    E = 0.2; % G = 1
+    E = 0.001; % G = 1
 
     numW = 1;
     Ndis = 100; % ensemble size
@@ -63,10 +64,11 @@ for wid = 10:10:130
         c12=wwR/UU1;
         c14=c12*c11;
         TT = c14*c14';
+        % cond=real(sum(sum(c14.*conj(c14f))));
         cond=real(sum(sum(TT)));
     end
     time2 = toc;
-    % cond
+    cond
     tic;
     for nW=1:Ndis
         c3 = UU1\c11;
@@ -89,4 +91,5 @@ for wid = 10:10:130
     % fprintf('dosR=%-8f\n',dosR);
     fprintf('%-5g%-10.5f%-10.5f%-10.5f%-10.5f\n',wid, time1, time2, time3, time4);
 end
-
+% p = profile('info');
+% profsave(p,'profile_results'); % save profile
