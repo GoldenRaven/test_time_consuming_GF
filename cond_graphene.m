@@ -4,7 +4,7 @@ clear all
 % tic;
 profile on
 %-------------------------
-for wid = 140
+for wid = 100
     nlen = wid;
     t = 1;
     %-------------------------
@@ -152,23 +152,19 @@ end
 function dos = recursive_dos(E, h0, h1, wid, nlen, sLr, sRr, Ndis)
     tic;
     for nW = 1:Ndis
-        [gr1, gr2, X] = maxinverse(E,h0,h1,wid,nlen,sLr',sRr');
+        % [gr1, gr2, X] = maxinverse(E,h0,h1,wid,nlen,sLr,sRr);
         % gL = 1i*(sLr - sLr');
         gR = 1i*(sRr - sRr');
         % T = gr1'*gL;
         % cond = real(trace(T));
         % cond = sum(sum(T.*conj(T)));
         %----------------------------------
+        [gr1, gr2, X] = maxinverse(E,h0,h1,wid,nlen,sLr,sRr);
         dos = 0;
         for count = 1:wid
             gf = X{count};
-            %----------------------------------
-            % DR = gf'*gR;
-            % dosR = sum(sum(DR.*gf.'));
-            %----------------------------------
-            DR = gf'*gR*gf;
-            dosR = real(trace(DR));
-            %----------------------------------
+            DR = gf*gR;
+            dosR = sum(sum(DR.*conj(gf)));
             dos = dos + dosR;
         end
     end
